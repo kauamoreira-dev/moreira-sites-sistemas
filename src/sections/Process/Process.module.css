@@ -21,7 +21,18 @@
   bottom: 30px;
   width: 2px;
   background: linear-gradient(180deg, var(--gold) 0%, var(--tide) 100%);
-  opacity: 0.35;
+  opacity: 0.3;
+}
+
+.lineFill {
+  position: absolute;
+  left: 27px;
+  top: 30px;
+  bottom: 30px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--gold) 0%, var(--tide) 100%);
+  transform-origin: top;
+  box-shadow: 0 0 12px 0 rgba(63, 191, 174, 0.4);
 }
 
 .step {
@@ -70,7 +81,8 @@
 }
 
 @media (max-width: 600px) {
-  .line {
+  .line,
+  .lineFill {
     left: 23px;
   }
   .step {

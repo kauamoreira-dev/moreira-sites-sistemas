@@ -8,18 +8,22 @@ export function Differentiators() {
     <section id="diferenciais" className="section">
       <div className="container">
         <div className={styles.wrap}>
-          <Reveal>
-            <p className="eyebrow">Diferenciais</p>
-            <h2 className={styles.heading}>Por que escolher um estúdio boutique.</h2>
-            <p className={styles.subtext}>
-              Sem promessas vagas: são escolhas concretas de como o trabalho é conduzido, do orçamento ao
-              suporte pós-entrega.
-            </p>
-          </Reveal>
+          <div>
+            <Reveal variant="title">
+              <p className="eyebrow">Diferenciais</p>
+              <h2 className={styles.heading}>Por que escolher um estúdio boutique.</h2>
+            </Reveal>
+            <Reveal variant="text" delay={0.1}>
+              <p className={styles.subtext}>
+                Sem promessas vagas: são escolhas concretas de como o trabalho é conduzido, do orçamento ao
+                suporte pós-entrega.
+              </p>
+            </Reveal>
+          </div>
 
           <div className={styles.grid}>
             {differentiators.map((d, index) => (
-              <Reveal key={d.title} delay={index * 0.08}>
+              <Reveal key={d.title} variant="card" delay={index * 0.08}>
                 <SpotlightCard className={styles.card}>
                   <span className={`${styles.icon} ${index % 2 === 0 ? styles.iconGold : styles.iconTide}`}>
                     <d.icon size={20} aria-hidden="true" />

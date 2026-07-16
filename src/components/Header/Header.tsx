@@ -1,15 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { nav } from "../../data/content";
 import { Button } from "../Button/Button";
+import { EASE_OUT } from "../../lib/motion";
 import styles from "./Header.module.css";
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] = useState<string>("");
+  const reduceMotion = useReducedMotion();
   const panelRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
@@ -117,7 +119,31 @@ export function Header() {
             aria-controls="mobile-menu"
             aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
           >
-            <Menu size={22} aria-hidden="true" />
+            <AnimatePresence mode="wait" initial={false}>
+              {menuOpen ? (
+                <motion.span
+                  key="x"
+                  style={{ display: "inline-flex" }}
+                  initial={reduceMotion ? undefined : { rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={reduceMotion ? undefined : { rotate: 90, opacity: 0 }}
+                  transition={{ duration: reduceMotion ? 0.01 : 0.25, ease: EASE_OUT }}
+                >
+                  <X size={22} aria-hidden="true" />
+                </motion.span>
+              ) : (
+                <motion.span
+                  key="menu"
+                  style={{ display: "inline-flex" }}
+                  initial={reduceMotion ? undefined : { rotate: 90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={reduceMotion ? undefined : { rotate: -90, opacity: 0 }}
+                  transition={{ duration: reduceMotion ? 0.01 : 0.25, ease: EASE_OUT }}
+                >
+                  <Menu size={22} aria-hidden="true" />
+                </motion.span>
+              )}
+            </AnimatePresence>
           </button>
         </div>
       </div>
@@ -132,10 +158,10 @@ export function Header() {
               role="dialog"
               aria-modal="true"
               aria-label="Menu de navegação"
-              initial={{ opacity: 0, y: -12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -12, scale: 0.99 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -12, scale: 0.99 }}
+              transition={{ duration: reduceMotion ? 0.01 : 0.3, ease: EASE_OUT }}
             >
               <button
                 ref={closeButtonRef}
@@ -152,9 +178,13 @@ export function Header() {
                     href={item.href}
                     className={styles.mobileLink}
                     onClick={() => setMenuOpen(false)}
-                    initial={{ opacity: 0, y: 14 }}
+                    initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 14 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.35, delay: 0.05 + index * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                    transition={{
+                      duration: reduceMotion ? 0.01 : 0.35,
+                      delay: reduceMotion ? 0 : 0.05 + index * 0.05,
+                      ease: EASE_OUT,
+                    }}
                   >
                     {item.label}
                   </motion.a>

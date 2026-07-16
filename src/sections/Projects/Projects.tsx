@@ -1,6 +1,8 @@
 import { useRef, type MouseEvent } from "react";
+import { motion, useMotionValue, useSpring, useReducedMotion } from "framer-motion";
 import { projects, type Project } from "../../data/content";
 import { Reveal } from "../../components/Reveal/Reveal";
+import { EASE_OUT, useCoarsePointer } from "../../lib/motion";
 import styles from "./Projects.module.css";
 
 function accentVar(accent: Project["accent"]) {
@@ -63,26 +65,66 @@ const mockups: Record<string, (p: { accent: Project["accent"] }) => JSX.Element>
 
 function ProjectCard({ project }: { project: Project }) {
   const ref = useRef<HTMLElement>(null);
+  const mockupRef = useRef<HTMLDivElement>(null);
   const Mockup = mockups[project.name];
+  const reduceMotion = useReducedMotion();
+  const isCoarse = useCoarsePointer();
+  const tiltEnabled = !reduceMotion && !isCoarse;
+
+  const rx = useMotionValue(0);
+  const ry = useMotionValue(0);
+  const springRx = useSpring(rx, { stiffness: 150, damping: 16, mass: 0.5 });
+  const springRy = useSpring(ry, { stiffness: 150, damping: 16, mass: 0.5 });
 
   function handleMouseMove(event: MouseEvent<HTMLElement>) {
     const el = ref.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    el.style.setProperty("--spot-x", `${event.clientX - rect.left}px`);
-    el.style.setProperty("--spot-y", `${event.clientY - rect.top}px`);
+    if (el) {
+      const rect = el.getBoundingClientRect();
+      el.style.setProperty("--spot-x", `${event.clientX - rect.left}px`);
+      el.style.setProperty("--spot-y", `${event.clientY - rect.top}px`);
+    }
+
+    if (!tiltEnabled || !mockupRef.current) return;
+    const mRect = mockupRef.current.getBoundingClientRect();
+    const px = (event.clientX - mRect.left) / mRect.width - 0.5;
+    const py = (event.clientY - mRect.top) / mRect.height - 0.5;
+    ry.set(px * 9);
+    rx.set(py * -9);
+  }
+
+  function handleMouseLeave() {
+    rx.set(0);
+    ry.set(0);
   }
 
   return (
-    <article ref={ref} className={`spotlight ${styles.card}`} onMouseMove={handleMouseMove}>
+    <motion.article
+      ref={ref}
+      className={`spotlight ${styles.card}`}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      whileHover={reduceMotion ? undefined : { y: -6 }}
+      whileTap={reduceMotion ? undefined : { scale: 0.985 }}
+      transition={{ duration: 0.3, ease: EASE_OUT }}
+    >
       <span className={styles.badge}>Projeto demonstrativo</span>
-      <div className={styles.mockup}>
-        <div className={styles.chrome} aria-hidden="true">
-          <span className={styles.dot} />
-          <span className={styles.dot} />
-          <span className={styles.dot} />
-        </div>
-        <Mockup accent={project.accent} />
+      <div className={styles.mockupTiltWrap}>
+        <motion.div
+          ref={mockupRef}
+          className={styles.mockup}
+          style={tiltEnabled ? { rotateX: springRx, rotateY: springRy } : undefined}
+          animate={reduceMotion || isCoarse ? undefined : { y: [0, -5, 0] }}
+          transition={
+            reduceMotion || isCoarse ? undefined : { duration: 4.5, repeat: Infinity, ease: "easeInOut" }
+          }
+        >
+          <div className={styles.chrome} aria-hidden="true">
+            <span className={styles.dot} />
+            <span className={styles.dot} />
+            <span className={styles.dot} />
+          </div>
+          <Mockup accent={project.accent} />
+        </motion.div>
       </div>
       <div className={styles.body}>
         <span className={styles.tag}>{project.tag}</span>
@@ -96,7 +138,7 @@ function ProjectCard({ project }: { project: Project }) {
           ))}
         </div>
       </div>
-    </article>
+    </motion.article>
   );
 }
 
@@ -104,22 +146,24 @@ export function Projects() {
   return (
     <section id="projetos" className="section">
       <div className="container">
-        <Reveal>
-          <div className={styles.head}>
+        <div className={styles.head}>
+          <Reveal variant="title">
             <div>
               <p className="eyebrow">Projetos</p>
               <h2 className={styles.heading}>Projetos demonstrativos que mostram como pensamos produto.</h2>
             </div>
+          </Reveal>
+          <Reveal variant="text" delay={0.1}>
             <p className={styles.note}>
               Interfaces construídas para apresentar capacidade técnica e de design — não sites de clientes
               reais.
             </p>
-          </div>
-        </Reveal>
+          </Reveal>
+        </div>
 
         <div className={styles.grid}>
           {projects.map((project, index) => (
-            <Reveal key={project.name} delay={index * 0.08}>
+            <Reveal key={project.name} variant="card" delay={index * 0.08}>
               <ProjectCard project={project} />
             </Reveal>
           ))}

@@ -1,5 +1,6 @@
 import { useId } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { EASE_OUT } from "../../lib/motion";
 
 interface RiverLineProps {
   /** "hero" = traço espesso com brilho, desenha-se ao carregar a página.
@@ -25,7 +26,7 @@ export function RiverLine({ variant = "divider", className, delay = 0 }: RiverLi
 
   const drawTransition = reduceMotion
     ? { duration: 0.01 }
-    : { duration: isHero ? 2.1 : 1.4, ease: [0.16, 1, 0.3, 1] as const, delay };
+    : { duration: isHero ? 2.1 : 1.4, ease: EASE_OUT, delay };
 
   return (
     <svg

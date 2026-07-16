@@ -1,5 +1,8 @@
 import type { ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { DURATION, EASE_OUT, VIEWPORT_ONCE } from "../../lib/motion";
+
+type RevealVariant = "title" | "text" | "card";
 
 interface RevealProps {
   children: ReactNode;
@@ -7,19 +10,39 @@ interface RevealProps {
   y?: number;
   className?: string;
   as?: "div" | "li";
+  /** título = entrada mais ampla; texto = sutil e rápida; card = leve profundidade (scale). */
+  variant?: RevealVariant;
 }
 
-export function Reveal({ children, delay = 0, y = 28, className, as = "div" }: RevealProps) {
+const PRESETS: Record<RevealVariant, { y: number; scale?: number; duration: number }> = {
+  title: { y: 34, duration: DURATION.slow },
+  text: { y: 16, duration: DURATION.fast },
+  card: { y: 26, scale: 0.96, duration: DURATION.base },
+};
+
+export function Reveal({ children, delay = 0, y, className, as = "div", variant = "text" }: RevealProps) {
   const reduceMotion = useReducedMotion();
   const Component = motion[as];
+  const preset = PRESETS[variant];
+  const offsetY = y ?? preset.y;
+
+  const initial = reduceMotion
+    ? { opacity: 0 }
+    : { opacity: 0, y: offsetY, ...(preset.scale ? { scale: preset.scale } : {}) };
+
+  const animate = { opacity: 1, y: 0, ...(preset.scale ? { scale: 1 } : {}) };
 
   return (
     <Component
       className={className}
-      initial={{ opacity: 0, y: reduceMotion ? 0 : y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
-      transition={{ duration: reduceMotion ? 0.01 : 0.7, delay: reduceMotion ? 0 : delay, ease: [0.16, 1, 0.3, 1] }}
+      initial={initial}
+      whileInView={animate}
+      viewport={VIEWPORT_ONCE}
+      transition={{
+        duration: reduceMotion ? 0.01 : preset.duration,
+        delay: reduceMotion ? 0 : delay,
+        ease: EASE_OUT,
+      }}
     >
       {children}
     </Component>

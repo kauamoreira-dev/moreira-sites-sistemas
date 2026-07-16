@@ -8,7 +8,7 @@ export function Services() {
   return (
     <section id="servicos" className="section">
       <div className="container">
-        <Reveal>
+        <Reveal variant="title">
           <div className={styles.head}>
             <p className="eyebrow">Serviços</p>
             <h2 className={styles.heading}>Do primeiro rascunho ao sistema em produção.</h2>
@@ -17,7 +17,7 @@ export function Services() {
 
         <div className={styles.grid}>
           {services.map((service, index) => (
-            <Reveal key={service.title} delay={index * 0.08}>
+            <Reveal key={service.title} variant="card" delay={index * 0.08}>
               <SpotlightCard className={styles.card}>
                 <span className={styles.icon}>
                   <service.icon size={22} aria-hidden="true" />

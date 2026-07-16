@@ -26,12 +26,12 @@ export function About() {
       <div className="container">
         <div className={styles.grid}>
           <div>
-            <Reveal>
+            <Reveal variant="title">
               <p className="eyebrow">Sobre a Moreira</p>
               <h2 className={styles.heading}>Um estúdio, não uma esteira de produção.</h2>
             </Reveal>
 
-            <Reveal delay={0.1}>
+            <Reveal variant="text" delay={0.1}>
               <div className={styles.paragraphs}>
                 <p>
                   A Moreira existe para preencher o espaço entre dois extremos: o site montado em uma tarde
@@ -48,7 +48,7 @@ export function About() {
             </Reveal>
           </div>
 
-          <Reveal delay={0.15}>
+          <Reveal variant="card" delay={0.15}>
             <div className={styles.card}>
               <span className={styles.cardLabel}>Como trabalhamos</span>
               {principles.map((p) => (

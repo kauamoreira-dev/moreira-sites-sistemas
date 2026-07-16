@@ -42,10 +42,12 @@ export function Contact() {
     <section id="contato" className="section">
       <div className="container">
         <div className={styles.grid}>
-          <Reveal>
-            <div>
+          <div>
+            <Reveal variant="title">
               <p className="eyebrow">Contato</p>
               <h2 className={styles.heading}>Vamos conversar sobre o seu projeto.</h2>
+            </Reveal>
+            <Reveal variant="text" delay={0.1}>
               <p className={styles.subtext}>
                 Preencha o formulário ou fale direto pelos canais abaixo — sem atendimento automático entre
                 você e quem desenvolve.
@@ -67,10 +69,10 @@ export function Contact() {
                   <span>Santarém, Pará — atendimento remoto para todo o Brasil</span>
                 </div>
               </div>
-            </div>
-          </Reveal>
+            </Reveal>
+          </div>
 
-          <Reveal delay={0.1}>
+          <Reveal variant="card" delay={0.1}>
             <form className={styles.form} onSubmit={handleSubmit}>
               <div className={styles.row}>
                 <div className={styles.field}>

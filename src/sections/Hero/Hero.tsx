@@ -1,8 +1,9 @@
-import { type MouseEvent } from "react";
-import { motion, useMotionValue, useSpring, useReducedMotion } from "framer-motion";
+import { useRef, type MouseEvent } from "react";
+import { motion, useMotionValue, useScroll, useSpring, useTransform, useReducedMotion } from "framer-motion";
 import { Code2, Gauge, MessageSquareText } from "lucide-react";
 import { Button } from "../../components/Button/Button";
 import { RiverLine } from "../../components/RiverLine/RiverLine";
+import { EASE_OUT } from "../../lib/motion";
 import styles from "./Hero.module.css";
 
 const container = {
@@ -12,15 +13,20 @@ const container = {
 
 const item = {
   hidden: { opacity: 0, y: 22 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE_OUT } },
 };
 
 export function Hero() {
   const reduceMotion = useReducedMotion();
+  const heroRef = useRef<HTMLElement>(null);
+
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
   const springX = useSpring(mx, { stiffness: 50, damping: 18, mass: 0.6 });
   const springY = useSpring(my, { stiffness: 50, damping: 18, mass: 0.6 });
+
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const glowParallax = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : 70]);
 
   function handleMouseMove(event: MouseEvent<HTMLElement>) {
     if (reduceMotion) return;
@@ -30,8 +36,8 @@ export function Hero() {
   }
 
   return (
-    <section id="top" className={`${styles.hero} section`} onMouseMove={handleMouseMove}>
-      <div className={styles.glow} />
+    <section id="top" ref={heroRef} className={`${styles.hero} section`} onMouseMove={handleMouseMove}>
+      <motion.div className={styles.glow} style={{ y: glowParallax }} />
       <motion.div className={styles.riverWrap} style={{ x: springX, y: springY }}>
         <RiverLine variant="hero" delay={0.6} />
       </motion.div>
@@ -43,7 +49,16 @@ export function Hero() {
           </motion.p>
 
           <motion.h1 variants={item} className={styles.headline}>
-            Sites e <span className={styles.gradientWord}>sistemas</span> que carregam o padrão da sua empresa.
+            Sites e{" "}
+            <motion.span
+              className={styles.gradientWord}
+              initial={reduceMotion ? undefined : { opacity: 0, y: 12, scale: 0.94 }}
+              animate={reduceMotion ? undefined : { opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.35, ease: EASE_OUT }}
+            >
+              sistemas
+            </motion.span>{" "}
+            que carregam o padrão da sua empresa.
           </motion.h1>
 
           <motion.p variants={item} className={styles.lead}>
