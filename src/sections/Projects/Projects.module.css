@@ -1,0 +1,218 @@
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-6);
+  margin-bottom: var(--space-16);
+}
+
+.heading {
+  font-size: var(--fs-display-lg);
+  margin-top: var(--space-4);
+  max-width: 640px;
+}
+
+.note {
+  color: var(--mist);
+  max-width: 32ch;
+  font-size: 0.9rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-8);
+}
+
+@media (max-width: 980px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--deep);
+  transition: transform 0.3s var(--ease-out), border-color 0.3s var(--ease-out);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--line-strong);
+}
+
+.badge {
+  position: absolute;
+  z-index: 2;
+  top: var(--space-4);
+  right: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: var(--scrim);
+  color: var(--paper);
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+}
+
+.mockup {
+  position: relative;
+  background: var(--noir);
+  padding: var(--space-4);
+  padding-top: var(--space-8);
+}
+
+.chrome {
+  position: absolute;
+  top: var(--space-3);
+  left: var(--space-4);
+  display: flex;
+  gap: 6px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--line-strong);
+}
+
+.body {
+  padding: var(--space-8) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  flex: 1;
+}
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  color: var(--tide-soft);
+}
+
+.title {
+  font-size: 1.4rem;
+}
+
+.description {
+  color: var(--mist);
+  font-size: 0.95rem;
+  flex: 1;
+}
+
+.stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: var(--space-2);
+}
+
+.pill {
+  font-size: 0.78rem;
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  color: var(--mist);
+}
+
+/* --- Mockups abstratos --- */
+
+.mesaGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  height: 140px;
+}
+
+.mesaCell {
+  border-radius: 6px;
+  background: rgba(244, 247, 245, 0.06);
+  border: 1px solid var(--line);
+}
+
+.vagasList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 140px;
+  justify-content: center;
+}
+
+.vagasRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(244, 247, 245, 0.05);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+.vagasAvatar {
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  flex-shrink: 0;
+}
+
+.vagasBar {
+  height: 7px;
+  border-radius: 4px;
+  background: rgba(244, 247, 245, 0.14);
+}
+
+.pratoList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 140px;
+  justify-content: center;
+}
+
+.pratoRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.pratoInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pratoThumb {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.pratoBar {
+  height: 7px;
+  width: 90px;
+  border-radius: 4px;
+  background: rgba(244, 247, 245, 0.14);
+}
+
+.pratoPrice {
+  height: 7px;
+  width: 28px;
+  border-radius: 4px;
+}

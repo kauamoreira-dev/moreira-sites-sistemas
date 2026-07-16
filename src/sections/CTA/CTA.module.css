@@ -1,0 +1,43 @@
+.band {
+  position: relative;
+  margin-inline: clamp(1.5rem, 5vw, 3rem);
+  padding: var(--space-24) clamp(1.5rem, 6vw, 5rem);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(150deg, var(--deep) 0%, var(--noir) 60%);
+  border: 1px solid var(--line);
+  overflow: hidden;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(60% 80% at 50% 0%, rgba(227, 169, 78, 0.14), transparent 70%);
+  pointer-events: none;
+}
+
+.heading {
+  position: relative;
+  font-size: var(--fs-display-lg);
+  max-width: 22ch;
+}
+
+.subtext {
+  position: relative;
+  margin-top: var(--space-4);
+  color: var(--mist);
+  max-width: 48ch;
+  font-size: var(--fs-body-lg);
+}
+
+.actions {
+  position: relative;
+  margin-top: var(--space-8);
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  justify-content: center;
+}

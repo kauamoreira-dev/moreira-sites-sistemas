@@ -1,0 +1,26 @@
+.bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 90;
+  display: flex;
+  gap: 0.65rem;
+  padding: 0.75rem clamp(1rem, 4vw, 1.5rem) calc(0.75rem + env(safe-area-inset-bottom, 0px));
+  background: rgba(6, 10, 13, 0.86);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border-top: 1px solid var(--line);
+}
+
+@media (min-width: 880px) {
+  .bar {
+    display: none;
+  }
+}
+
+.whatsapp {
+  flex: 0 0 auto;
+  width: 3rem;
+  padding-inline: 0;
+}

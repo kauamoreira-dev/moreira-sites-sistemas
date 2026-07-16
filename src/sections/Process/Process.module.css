@@ -1,0 +1,84 @@
+.head {
+  max-width: 640px;
+  margin-bottom: var(--space-16);
+}
+
+.heading {
+  font-size: var(--fs-display-lg);
+  margin-top: var(--space-4);
+}
+
+.list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.line {
+  position: absolute;
+  left: 27px;
+  top: 30px;
+  bottom: 30px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--gold) 0%, var(--tide) 100%);
+  opacity: 0.35;
+}
+
+.step {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: var(--space-6);
+  padding-block: var(--space-8);
+  position: relative;
+}
+
+.marker {
+  position: relative;
+  z-index: 1;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--deep);
+  border: 1px solid var(--line-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+}
+
+.content {
+  padding-top: 0.4rem;
+}
+
+.number {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  color: var(--tide-soft);
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+}
+
+.title {
+  font-size: 1.4rem;
+  margin-top: 0.35rem;
+  margin-bottom: 0.5rem;
+}
+
+.description {
+  color: var(--mist);
+  max-width: 56ch;
+}
+
+@media (max-width: 600px) {
+  .line {
+    left: 23px;
+  }
+  .step {
+    grid-template-columns: 48px 1fr;
+    gap: var(--space-4);
+  }
+  .marker {
+    width: 48px;
+    height: 48px;
+  }
+}

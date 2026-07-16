@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <rect width="1200" height="630" fill="#060A0D"/>
+  <defs>
+    <linearGradient id="g" x1="80" y1="480" x2="1120" y2="140" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#E3A94E"/>
+      <stop offset="1" stop-color="#3FBFAE"/>
+    </linearGradient>
+  </defs>
+  <path d="M80 470C220 470 220 360 360 360C500 360 500 250 640 250C740 250 780 210 940 190C1000 183 1040 175 1120 150"
+    stroke="url(#g)" stroke-width="6" stroke-linecap="round" opacity="0.9"/>
+  <text x="80" y="130" font-family="Arial, sans-serif" font-size="64" font-weight="700" fill="#F4F7F5">Moreira</text>
+  <text x="80" y="180" font-family="Arial, sans-serif" font-size="28" letter-spacing="4" fill="#8FA0A6">SITES &amp; SISTEMAS</text>
+  <text x="80" y="560" font-family="Arial, sans-serif" font-size="26" fill="#8FA0A6">Desenvolvimento web sob medida — código limpo, performance real.</text>
+</svg>

@@ -1,0 +1,154 @@
+.grid {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: var(--space-24);
+}
+
+@media (max-width: 880px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+  }
+}
+
+.heading {
+  font-size: var(--fs-display-lg);
+  margin-top: var(--space-4);
+  max-width: 18ch;
+}
+
+.subtext {
+  margin-top: var(--space-6);
+  color: var(--mist);
+  max-width: 44ch;
+}
+
+.infoList {
+  margin-top: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.infoRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: 0.95rem;
+}
+
+.infoRow svg {
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+.infoRow a {
+  transition: color 0.2s var(--ease-out);
+}
+
+.infoRow a:hover {
+  color: var(--tide-soft);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+@media (max-width: 560px) {
+  .row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  font-size: 0.85rem;
+  color: var(--mist);
+}
+
+.input,
+.select,
+.textarea {
+  background: var(--deep);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1rem;
+  color: var(--paper);
+  width: 100%;
+  transition: border-color 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  border-color: var(--tide);
+  box-shadow: 0 0 0 3px rgba(63, 191, 174, 0.16);
+}
+
+.input:invalid:not(:placeholder-shown) {
+  border-color: rgba(227, 169, 78, 0.5);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.selectWrap {
+  position: relative;
+}
+
+.select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 2.75rem;
+  width: 100%;
+  cursor: pointer;
+}
+
+.selectChevron {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--mist);
+  pointer-events: none;
+}
+
+.submitRow {
+  margin-top: var(--space-2);
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.status {
+  margin-top: var(--space-2);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.9rem;
+  color: var(--tide-soft);
+  background: rgba(63, 191, 174, 0.1);
+  border: 1px solid rgba(63, 191, 174, 0.25);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+}
+
+.status svg {
+  flex-shrink: 0;
+}
